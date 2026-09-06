@@ -4,6 +4,26 @@ import asyncio
 import json
 import sqlite3
 import uuid
+import requests
+MODEL_FILE = "ultron_brain_weights.npz"
+MODEL_URL = "https://github.com/vanshraj4040-dot/ULTRON-AI/releases/download/V1.0.0/ultron_brain_weights.npz"
+
+def download_model_if_missing():
+    if not os.path.exists(MODEL_FILE):
+        print("[ULTRON CORE] Downloading model weights from GitHub Releases...")
+        res = requests.get(MODEL_URL, stream=True)
+        res.raise_for_status()
+        with open(MODEL_FILE, "wb") as f:
+            for chunk in res.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+        print("[ULTRON CORE] Model download completed successfully!")
+    else:
+        print("[ULTRON CORE] Model weights detected locally.")
+
+# App start hone se pehle execute karein
+download_model_if_missing()
+
 from datetime import datetime
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
