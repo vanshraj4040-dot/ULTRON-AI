@@ -16,7 +16,12 @@ import urllib.request
 import urllib.parse
 import urllib.error
 import ssl
-import pygame
+try:
+    import pygame
+except Exception:
+    pygame = None
+    print("[ULTRON CORE] Running in headless cloud mode (Pygame disabled).")
+    
 import webbrowser
 import shutil
 from gtts import gTTS
