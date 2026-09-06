@@ -5,3 +5,11 @@ requests
 google-generativeai
 groq
 gTTS
+numpy
+pyttsx3
+pyjnius
+sympy
+beautifulsoup4
+pypdf
+pdfplumber
+urllib3
