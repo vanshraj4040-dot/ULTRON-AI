@@ -35,10 +35,8 @@ sys.path.append(current_dir)
 sys.path.append(os.path.join(current_dir, "python_code.py"))
 sys.path.append("/sdcard/python_code.py")
 
-try:
-    from AI2_ULTRON import query_ultron_brain, CONNECTED_NODES
-except ModuleNotFoundError:
-    from python_code.AI2_ULTRON import query_ultron_brain, CONNECTED_NODES
+# Purana try-except hata kar bas yeh ek line rakho:
+from AI2_ULTRON import query_ultron_brain, CONNECTED_NODES
 
 app = FastAPI(title="ULTRON Neural Station")
 
