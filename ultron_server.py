@@ -277,7 +277,8 @@ HTML_UI = """
     let currentSessionId = localStorage.getItem('active_ultron_session') || "session_" + Math.random().toString(36).substring(7);
     localStorage.setItem('active_ultron_session', currentSessionId);
 
-    let ws = new WebSocket(`ws://${location.host}/ws/ultron/${currentSessionId}`);
+    const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+    let ws = new WebSocket(`${wsProtocol}//${location.host}/ws/ultron/${currentSessionId}`);
     let ttsEnabled = false;
 
     const chatBox = document.getElementById('chatBox');
@@ -325,7 +326,7 @@ HTML_UI = """
       localStorage.setItem('active_ultron_session', currentSessionId);
       
       if(ws) ws.close();
-      ws = new WebSocket(`ws://${location.host}/ws/ultron/${currentSessionId}`);
+      ws = new WebSocket(`${wsProtocol}//${location.host}/ws/ultron/${currentSessionId}`);
       attachWsEvents();
       
       chatBox.innerHTML = '';
@@ -430,10 +431,10 @@ async def websocket_endpoint(ws: WebSocket, client_id: str):
         while True:
             raw = await ws.receive_text()
             try:
-                data = json.loads(raw_data)
-                prompt = data.get("prompt", raw_data)
+                data = json.loads(raw)
+                prompt = data.get("prompt", raw)
             except json.JSONDecodeError:
-                prompt = raw_data
+                prompt = raw
 
             await manager.send_json(client_id, {
                 "type": "STATUS_UPDATE",
