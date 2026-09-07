@@ -77,7 +77,7 @@ class UltronKnowledgeEngine:
             cursor.execute("SELECT COUNT(*) FROM knowledge_fts;")
             return cursor.fetchone()[0]
 
-        def query(self, search_text: str, limit=2):
+    def query(self, search_text: str, limit=2):
             # Clean query terms: Hyphens ko space se replace karo taaki ML-KEM -> ML KEM bane
             cleaned_text = re.sub(r'[^a-zA-Z0-9\s]', ' ', search_text)
             clean_terms = cleaned_text.strip().split()
