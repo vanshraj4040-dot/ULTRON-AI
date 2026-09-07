@@ -5,6 +5,7 @@ import json
 import sqlite3
 import uuid
 import requests
+from pydantic import BaseModel
 MODEL_FILE = "ultron_brain_weights.npz"
 MODEL_URL = "https://github.com/vanshraj4040-dot/ULTRON-AI/releases/download/V1.0.0/ultron_brain_weights.npz"
 
@@ -417,12 +418,27 @@ class ConnectionManager:
 
 manager = ConnectionManager()
 
+@app.post("/api/chat")
+async def chat_endpoint(req: ChatRequest):
+    response_text = await asyncio.to_thread(query_ultron_brain, req.prompt)
+    return {"text": response_text}
+    
 @app.websocket("/ws/ultron/{client_id}")
 async def websocket_endpoint(ws: WebSocket, client_id: str):
     await manager.connect(client_id, ws)
     try:
         while True:
             raw = await ws.receive_text()
+            try:
+                data = json.loads(raw_data)
+                prompt = data.get("prompt", raw_data)
+            except json.JSONDecodeError:
+                prompt = raw_data
+
+            await manager.send_json(client_id, {
+                "type": "STATUS_UPDATE",
+                "state": "THINKING"
+            })
             payload = json.loads(raw)
             prompt = payload.get("prompt", "")
 
