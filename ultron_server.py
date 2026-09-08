@@ -5,6 +5,7 @@ import json
 import sqlite3
 import uuid
 import requests
+import traceback
 from pydantic import BaseModel
 MODEL_FILE = "ultron_brain_weights.npz"
 MODEL_URL = "https://github.com/vanshraj4040-dot/ULTRON-AI/releases/download/V1.0.0/ultron_brain_weights.npz"
@@ -447,9 +448,12 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
 
             # --- SAFE BRAIN EXECUTION WITH TRY-EXCEPT ---
             try:
-                reply = await asyncio.to_thread(query_ultron_brain, prompt)
+                reply = query_ultron_brain(prompt)
             except Exception as brain_err:
-                reply = f"[ULTRON BRAIN ERROR]: {str(brain_err)}"
+                error_details = traceback.format_exc()
+                # Console logs aur UI dono par exact traceback show hoga
+                print(f"--- BRAIN TRACEBACK ---\n{error_details}")
+                reply = f"[ULTRON BRAIN ERROR]: {str(brain_err)}\n\nLocation:\n{error_details.splitlines()[-2]}"
 
             db_save_message(client_id, "ULTRON", "ai", reply)
 
