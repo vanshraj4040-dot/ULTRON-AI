@@ -17,16 +17,16 @@ import urllib.request
 import urllib.parse
 import urllib.error
 import ssl
+import webbrowser
+import shutil
+from gtts import gTTS
+from ultron_db import kb_engine
 try:
     import pygame
 except Exception:
     pygame = None
     print("[ULTRON CORE] Running in headless cloud mode (Pygame disabled).")
     
-import webbrowser
-import shutil
-from gtts import gTTS
-from ultron_db import kb_engine
 
 # Optional pyttsx3 import for Offline Deep Male Voice TTS
 try:
