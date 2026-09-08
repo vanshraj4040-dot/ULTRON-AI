@@ -425,11 +425,11 @@ async def chat_endpoint(req: ChatRequest):
     return {"text": response_text}
     
 @app.websocket("/ws/ultron/{client_id}")
-async def websocket_endpoint(ws: WebSocket, client_id: str):
-    await manager.connect(client_id, ws)
+async def websocket_endpoint(websocket: WebSocket, client_id: str):
+    await manager.connect(client_id, websocket)
     try:
         while True:
-            raw = await ws.receive_text()
+            raw = await websocket.receive_text()
             try:
                 data = json.loads(raw)
                 prompt = data.get("prompt", raw)
@@ -438,24 +438,28 @@ async def websocket_endpoint(ws: WebSocket, client_id: str):
 
             await manager.send_json(client_id, {
                 "type": "STATUS_UPDATE",
-                "state": "THINKING"
+                "state": "Thinking"
             })
-            payload = json.loads(raw)
-            prompt = payload.get("prompt", "")
 
             session_title = prompt[:22] + "..." if len(prompt) > 22 else prompt
             db_create_session(client_id, session_title)
             db_save_message(client_id, "YOU", "user", prompt)
 
-            await manager.send(client_id, {"type": "STATUS"})
-            reply = await asyncio.to_thread(query_ultron_brain, prompt)
+            # --- SAFE BRAIN EXECUTION WITH TRY-EXCEPT ---
+            try:
+                reply = await asyncio.to_thread(query_ultron_brain, prompt)
+            except Exception as brain_err:
+                reply = f"[ULTRON BRAIN ERROR]: {str(brain_err)}"
+
             db_save_message(client_id, "ULTRON", "ai", reply)
 
-            await manager.send(client_id, {"type": "REPLY", "text": reply})
-            
+            await manager.send_json(client_id, {
+                "type": "REPLY",
+                "text": reply
+            })
     except WebSocketDisconnect:
         manager.disconnect(client_id)
-
+                
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
