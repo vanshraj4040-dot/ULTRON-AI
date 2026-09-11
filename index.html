@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="ULTRON - Advanced Artificial Intelligence Interface">
+
+    <meta name="theme-color"
+          content="#05070d">
+
+    <title>ULTRON — Artificial Intelligence</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background effects -->
+    <div class="background-grid"></div>
+    <div class="scanlines"></div>
+
+    <!-- Top navigation -->
+    <header class="top-bar">
+
+        <div class="brand">
+            <div class="brand-core"></div>
+
+            <div>
+                <h1>ULTRON</h1>
+                <span>ARTIFICIAL INTELLIGENCE SYSTEM</span>
+            </div>
+        </div>
+
+        <div class="system-status">
+            <span class="status-dot"></span>
+            <span id="systemStatus">SYSTEM ONLINE</span>
+        </div>
+
+    </header>
+
+
+    <!-- Main interface -->
+    <main class="main-container">
+
+        <!-- Left panel -->
+        <aside class="side-panel">
+
+            <section class="panel-card">
+
+                <div class="panel-title">
+                    <span>◈</span>
+                    SYSTEM
+                </div>
+
+                <div class="system-info">
+
+                    <div class="info-row">
+                        <span>CORE</span>
+                        <strong id="coreStatus">ONLINE</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>NETWORK</span>
+                        <strong>CONNECTED</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>AI ENGINE</span>
+                        <strong>READY</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>BRAIN</span>
+                        <strong id="brainStatus">STANDBY</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <section class="panel-card">
+
+                <div class="panel-title">
+                    <span>◈</span>
+                    CAPABILITIES
+                </div>
+
+                <ul class="capabilities">
+                    <li>Natural Language</li>
+                    <li>Reasoning Engine</li>
+                    <li>Knowledge Processing</li>
+                    <li>Future AI Brain</li>
+                </ul>
+
+            </section>
+
+
+            <section class="panel-card mission-card">
+
+                <div class="panel-title">
+                    <span>◈</span>
+                    MISSION
+                </div>
+
+                <p>
+                    Building an advanced personal artificial
+                    intelligence system.
+                </p>
+
+            </section>
+
+        </aside>
+
+
+        <!-- Center AI interface -->
+        <section class="ai-interface">
+
+            <div class="core-container">
+
+                <div class="outer-ring ring-one"></div>
+                <div class="outer-ring ring-two"></div>
+                <div class="outer-ring ring-three"></div>
+
+                <div class="ai-core">
+                    <div class="core-inner">
+                        U
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="ai-title">
+                <span>ULTRON</span>
+                <small>INTELLIGENCE CORE</small>
+            </div>
+
+
+            <div class="wave-container">
+
+                <div class="wave"></div>
+                <div class="wave wave-two"></div>
+
+            </div>
+
+
+            <!-- Chat -->
+            <div class="chat-window" id="chatWindow">
+
+                <div class="message ultron-message">
+
+                    <div class="message-label">
+                        ULTRON
+                    </div>
+
+                    <p>
+                        System initialized.
+                        I am ready for your commands.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Input -->
+            <div class="input-area">
+
+                <button
+                    class="icon-button"
+                    id="voiceButton"
+                    title="Voice interface">
+                    🎙
+                </button>
+
+                <input
+                    type="text"
+                    id="userInput"
+                    placeholder="Enter command..."
+                    autocomplete="off"
+                >
+
+                <button
+                    class="send-button"
+                    id="sendButton">
+
+                    SEND
+
+                </button>
+
+            </div>
+
+
+            <div class="quick-actions">
+
+                <button data-command="System status">
+                    SYSTEM STATUS
+                </button>
+
+                <button data-command="Who are you?">
+                    IDENTIFY
+                </button>
+
+                <button data-command="Run diagnostics">
+                    DIAGNOSTICS
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <span>ULTRON AI</span>
+
+        <span>•</span>
+
+        <span>PERSONAL ARTIFICIAL INTELLIGENCE</span>
+
+        <span>•</span>
+
+        <span id="clock">00:00:00</span>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+  </html>
