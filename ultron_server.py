@@ -227,7 +227,7 @@ HTML_UI = """
           <option value="auto">🧠 Auto (Hybrid Edge-Cloud Core)</option>
           <option value="groq">⚡ Groq OpenAI (Fast Cloud)</option>
           <option value="gemini">♊ Gemini 3.6 Flash (Analytical)</option>
-          <option value="local">💻 Local 10M Edge Brain (Offline)</option>
+          <option value="local">💻 Local 30M Edge Brain (Offline)</option>
         </select>
       </div>
 
